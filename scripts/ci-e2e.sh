@@ -92,6 +92,10 @@ create_powervs_network_instance(){
 
     # Install power-iaas command-line plug-in and target the required service instance
     ibmcloud plugin install power-iaas -f -v ${POWER_PLUGIN_VERSION}
+    echo "I*AM*GOING*TO*FETCH*CRNNNNNNNNNNNNNNNN"
+    echo "INSTANCE_ID"
+    echo ${IBMPOWERVS_SERVICE_INSTANCE_ID}
+    echo "***************"
     CRN=$(ibmcloud resource service-instance ${IBMPOWERVS_SERVICE_INSTANCE_ID} --output json | jq -r '.[].crn')
     ibmcloud pi workspace target ${CRN}
 
@@ -123,8 +127,8 @@ init_network_powervs(){
 
 prerequisites_powervs(){
     # Assigning PowerVS variables
-    export IBMPOWERVS_SSHKEY_NAME=${IBMPOWERVS_SSHKEY_NAME:-"powercloud-bot-key"}
-    export IBMPOWERVS_IMAGE_NAME=${IBMPOWERVS_IMAGE_NAME:-"capibm-powervs-centos-streams9-1-31-0"}
+    export IBMPOWERVS_SSHKEY_NAME=${IBMPOWERVS_SSHKEY_NAME:-"xxxx"}
+    export IBMPOWERVS_IMAGE_NAME=${IBMPOWERVS_IMAGE_NAME:-"xxxxxxxxxx"}
     export IBMPOWERVS_SERVICE_INSTANCE_ID=${BOSKOS_RESOURCE_ID:-"d53da3bf-1f4a-42fa-9735-acf16b1a05cd"}
     export IBMPOWERVS_NETWORK_NAME="capi-net-$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head --bytes 5)"
     export ZONE=${BOSKOS_ZONE:-"osa21"}
@@ -158,7 +162,11 @@ main(){
 
         # If the checkout process was a success then load the
         # environment variables into this process.
-        [ "${checkout_account_status}" = "0" ] && . "${account_env_var_file}"
+	[ "${checkout_account_status}" = "0" ] && . "${account_env_var_file}"
+	echo "WAIT TILL I SEE ACCOUNT VAR"
+	cat ${account_env_var_file}
+	sleep 300
+	echo "DONE"
 
         # Always remove the account environment variable file which
         # could contain sensitive information.
@@ -179,7 +187,7 @@ main(){
     export DOCKER_BUILDKIT=1
     export PROVIDER_ID_FORMAT=v2
     export EXP_CLUSTER_RESOURCE_SET=true
-    export IBMACCOUNT_ID=${IBMACCOUNT_ID:-"7cfbd5381a434af7a09289e795840d4e"}
+    export IBMACCOUNT_ID=${IBMACCOUNT_ID:-"xxxxx"}
     export BASE64_API_KEY=$(tr -d '\n' <<<"$IBMCLOUD_API_KEY" | base64)
     # Setting controller loglevel to allow debug logs from the VPC/PowerVS client
     export LOGLEVEL=5

@@ -43,10 +43,9 @@ checkout_account(){
 
     if [[ ${status_code} == 200 ]]; then
         export BOSKOS_RESOURCE_NAME=$(jq -r '.name' < output.json)
-        export IBMCLOUD_API_KEY=$(jq -r '.userdata["api-key"]' < output.json)
         export BOSKOS_RESOURCE_GROUP=$(jq -r '.userdata["resource-group"]' < output.json)
         export BOSKOS_REGION=$(jq -r '.userdata["region"]' < output.json)
-        if [[ ${resource_type} == "powervs-service" ]]; then
+        if [[ ${resource_type} == "powervs-k8s-conformance" ]]; then
             export BOSKOS_RESOURCE_ID=$(jq -r '.userdata["service-instance-id"]' < output.json)
             export BOSKOS_ZONE=$(jq -r '.userdata["zone"]' < output.json)
         fi
