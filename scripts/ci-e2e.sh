@@ -88,6 +88,9 @@ create_powervs_network_instance(){
 
     ibmcloud config --check-version=false
     # Login to IBM Cloud using the API Key
+    echo "IA AM GOING TO LOGINNNNNNNNNNNNN"
+    echo $IBMCLOUD_API_KEY
+    echo "\n************************"
     retry "ibmcloud login -a cloud.ibm.com --no-region"
 
     # Install power-iaas command-line plug-in and target the required service instance
@@ -180,6 +183,7 @@ main(){
     export PROVIDER_ID_FORMAT=v2
     export EXP_CLUSTER_RESOURCE_SET=true
     export IBMACCOUNT_ID=${IBMACCOUNT_ID:-"7cfbd5381a434af7a09289e795840d4e"}
+    export IBMCLOUD_API_KEY=${IBMCLOUD_API_KEY}
     export BASE64_API_KEY=$(tr -d '\n' <<<"$IBMCLOUD_API_KEY" | base64)
     # Setting controller loglevel to allow debug logs from the VPC/PowerVS client
     export LOGLEVEL=5
